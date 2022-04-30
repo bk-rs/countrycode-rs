@@ -38,14 +38,15 @@ pub static RECORDS: once_cell::sync::Lazy<Records> = once_cell::sync::Lazy::new(
 });
 
 #[cfg(feature = "once_cell")]
-pub static RECORDS_ISO2_MAP: once_cell::sync::Lazy<std::collections::HashMap<Box<str>, Record>> =
-    once_cell::sync::Lazy::new(|| {
-        RECORDS
-            .iter()
-            .cloned()
-            .map(|x| (x.iso2.to_owned(), x))
-            .collect()
-    });
+pub static RECORDS_ISO2_MAP: once_cell::sync::Lazy<
+    std::collections::HashMap<country_code::CountryCode, Record>,
+> = once_cell::sync::Lazy::new(|| {
+    RECORDS
+        .iter()
+        .cloned()
+        .map(|x| (x.iso2.to_owned(), x))
+        .collect()
+});
 
 //
 #[derive(Debug, Clone)]
